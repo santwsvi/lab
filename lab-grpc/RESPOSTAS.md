@@ -13,3 +13,10 @@
 2. Indica que o combo gRPC + protocol buffers é agnóstico a linguagens de programação, possibilitando, por exemplo, colaboração menos restritiva entre profissionais especializados em diferentes tecnologias.
 
 3. A classe gerada automaticamente CentralAtendimentoGrpc.java pertence ao serviço central.CentralAtendimento, sendo o método getConsultarHorarioMethod responsável pela funcionalidade de ConsultarHorario.
+
+6.6 - 1. Em alto nível: (a) o cliente serializa a mensagem PerguntaHorario em bytes (protobuf) e monta um frame HTTP/2; (b) esses bytes trafegam pela rede até o servidor, numa conexão HTTP/2 já estabelecida com o canal; (c) no servidor, o runtime do gRPC desserializa os bytes de volta em um objeto PerguntaHorario e invoca o método correspondente (consultarHorario/ConsultarHorario) - a resposta faz o caminho inverso até o stub devolver o objeto RespostaHorario para quem chamou.
+
+2. No ClienteTCP do roteiro anterior, "montar a mensagem" era feito manualmente pelo próprio código do cliente (concatenar/formatar uma string e converter para bytes com getBytes()), e "interpretar a resposta" era o servidor fazendo parsing dessa string à mão. No gRPC, esse trabalho todo (serialização, desserialização, definição do formato) é feito pelo código gerado a partir do central.proto - o programador só monta o objeto da mensagem (PerguntaHorario) e lê os campos da resposta (RespostaHorario), sem escrever nenhuma lógica de parsing.
+
+3. Com o servidor desligado, a chamada stub.consultarHorario(pergunta) não trava silenciosamente nem retorna null: ela lança uma exceção (StatusRuntimeException em Java, grpc.RpcError em Python) com um status como UNAVAILABLE, indicando que não foi possível estabelecer conexão com o servidor. Isso é bem diferente do TCP "na mão", onde normalmente é preciso tratar uma ConnectException/ConnectionRefusedError no próprio código de sockets - aqui o gRPC já entrega um erro padronizado e tipado.
+
