@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ClienteCentral {
     // OFFSET pessoal - use o MESMO valor do servidor (ver seção 3.3 do roteiro)
-    static final int OFFSET = 81;
+    static final int OFFSET = 249;
 
     public static void main(String[] args) {
         int porta = 50051 + OFFSET;

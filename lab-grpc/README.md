@@ -12,7 +12,7 @@ Central de Atendimento da Turma via gRPC, implementada em Java e Python a partir
 
 ## OFFSET usado
 
-`OFFSET = 81` (dois últimos dígitos da matrícula/RA), aplicado às portas conforme seção 3.3 do roteiro:
+`OFFSET = 249` (dois últimos dígitos da matrícula/RA), aplicado às portas conforme seção 3.3 do roteiro:
 
 | Servidor    | Porta-base | Porta usada |
 |-------------|-----------:|------------:|

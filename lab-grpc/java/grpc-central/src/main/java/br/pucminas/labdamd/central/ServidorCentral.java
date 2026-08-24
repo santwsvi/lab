@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ServidorCentral {
     // OFFSET pessoal (dois últimos dígitos da matrícula/RA) - ver seção 3.3 do roteiro
-    static final int OFFSET = 81;
+    static final int OFFSET = 249;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         int porta = 50051 + OFFSET;

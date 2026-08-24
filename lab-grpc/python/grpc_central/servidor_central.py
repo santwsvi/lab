@@ -8,7 +8,7 @@ import central_pb2
 import central_pb2_grpc
 
 # OFFSET pessoal (dois últimos dígitos da matrícula/RA) - ver seção 3.3 do roteiro
-OFFSET = 81
+OFFSET = 249
 PORTA = 50061 + OFFSET
 
 
